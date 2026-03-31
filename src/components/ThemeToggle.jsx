@@ -3,15 +3,20 @@ import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
 export const ThemeToggle = () => {
-  const [isDarkMode, setIsDarkMode] = useState(true); // Changed to true by default
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
   useEffect(() => {
     const storedTheme = localStorage.getItem("theme");
+    
+    // Check if there's a stored theme
     if (storedTheme === "light") {
       setIsDarkMode(false);
       document.documentElement.classList.remove("dark");
+    } else if (storedTheme === "dark") {
+      setIsDarkMode(true);
+      document.documentElement.classList.add("dark");
     } else {
-      // Default to dark mode for everything
+      // Default to dark mode if no theme stored
       localStorage.setItem("theme", "dark");
       setIsDarkMode(true);
       document.documentElement.classList.add("dark");
@@ -34,11 +39,11 @@ export const ThemeToggle = () => {
     <button 
       onClick={toggleTheme} 
       className={cn(
-        // Hide on mobile (max-sm), show on tablet and desktop (sm and above)
         "fixed top-5 right-5 z-50 p-2 rounded-full transition-colors duration-300",
         "focus:outline-hidden",
-        "hidden sm:flex" // Hidden on mobile, visible on sm screens and up
+        "hidden sm:block" // Hide on mobile (max-width: 640px), show on desktop
       )}
+      aria-label="Toggle theme"
     >
       {isDarkMode ? (
         <Sun className="h-6 w-6 text-yellow-300" />
