@@ -1,3 +1,18 @@
+/* FORCE DARK MODE - OVERRIDE EVERYTHING */
+html {
+  color-scheme: dark !important;
+}
+
+html:not(.dark) {
+  color-scheme: dark !important;
+}
+
+/* Ensure body always has dark background */
+body {
+  background-color: hsl(222, 47%, 4%) !important;
+  color: hsl(213, 31%, 91%) !important;
+}
+
 @import "tailwindcss";
 
 @theme {

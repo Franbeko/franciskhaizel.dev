@@ -10,18 +10,10 @@ import { Footer } from "../components/Footer";
 import { useEffect } from "react";
 
 export const Home = () => {
-  // Force dark mode on initial load
   useEffect(() => {
-    // Check if there's a theme in localStorage
-    const storedTheme = localStorage.getItem("theme");
-    
-    // If no theme stored or theme is dark, set to dark mode
-    if (!storedTheme || storedTheme === "dark") {
-      localStorage.setItem("theme", "dark");
-      document.documentElement.classList.add("dark");
-    } else if (storedTheme === "light") {
-      document.documentElement.classList.remove("dark");
-    }
+    // FORCE dark mode on component mount
+    document.documentElement.classList.add("dark");
+    localStorage.setItem("theme", "dark");
   }, []);
 
   return (

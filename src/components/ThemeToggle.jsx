@@ -6,20 +6,22 @@ export const ThemeToggle = () => {
   const [isDarkMode, setIsDarkMode] = useState(true);
 
   useEffect(() => {
-    const storedTheme = localStorage.getItem("theme");
-    
-    // Check if there's a stored theme
-    if (storedTheme === "light") {
-      setIsDarkMode(false);
-      document.documentElement.classList.remove("dark");
-    } else if (storedTheme === "dark") {
-      setIsDarkMode(true);
+    // FORCE dark mode on initial load - IGNORE localStorage
+    const forceDarkMode = () => {
       document.documentElement.classList.add("dark");
-    } else {
-      // Default to dark mode if no theme stored
       localStorage.setItem("theme", "dark");
       setIsDarkMode(true);
-      document.documentElement.classList.add("dark");
+    };
+
+    // Check if dark class is already applied
+    const isDark = document.documentElement.classList.contains("dark");
+    const storedTheme = localStorage.getItem("theme");
+    
+    if (!isDark || storedTheme !== "light") {
+      forceDarkMode();
+    } else if (storedTheme === "light") {
+      setIsDarkMode(false);
+      document.documentElement.classList.remove("dark");
     }
   }, []);
 
@@ -41,7 +43,7 @@ export const ThemeToggle = () => {
       className={cn(
         "fixed top-5 right-5 z-50 p-2 rounded-full transition-colors duration-300",
         "focus:outline-hidden",
-        "hidden sm:block" // Hide on mobile (max-width: 640px), show on desktop
+        "flex"
       )}
       aria-label="Toggle theme"
     >
