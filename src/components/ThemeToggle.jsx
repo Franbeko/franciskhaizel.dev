@@ -6,7 +6,7 @@ export const ThemeToggle = () => {
   const [isDarkMode, setIsDarkMode] = useState(true);
 
   useEffect(() => {
-    // FORCE dark mode on initial load - IGNORE localStorage
+    // FORCE dark mode on initial load
     const forceDarkMode = () => {
       document.documentElement.classList.add("dark");
       localStorage.setItem("theme", "dark");
@@ -43,7 +43,7 @@ export const ThemeToggle = () => {
       className={cn(
         "fixed top-5 right-5 z-50 p-2 rounded-full transition-colors duration-300",
         "focus:outline-hidden",
-        "flex"
+        "hidden sm:flex" // Hide on mobile, show on tablet and desktop
       )}
       aria-label="Toggle theme"
     >
